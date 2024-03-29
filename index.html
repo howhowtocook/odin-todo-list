@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    <h1>Todo App</h1>
+
+    <!-- Form to add a new todo item -->
+    <form id="todoForm">
+      <label for="title">Title:</label>
+      <input type="text" id="title" required /><br />
+      <label for="description">Description:</label>
+      <input type="text" id="description" required /><br />
+      <label for="dueDate">Due Date:</label>
+      <input type="date" id="dueDate" required /><br />
+      <label>Priority:</label><br />
+      <input type="checkbox" id="highPriority" value="High" />
+      <label for="highPriority">High</label><br />
+      <input type="checkbox" id="mediumPriority" value="Medium" />
+      <label for="mediumPriority">Medium</label><br />
+      <input type="checkbox" id="lowPriority" value="Low" />
+      <label for="lowPriority">Low</label><br />
+      <label for="notes">Notes:</label>
+      <textarea id="notes"></textarea><br />
+      <button type="submit">Add Todo</button>
+    </form>
+
+    <!-- Container to display projects and todos -->
+    <div id="projectContainer"></div>
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <!-- Form fields for editing todo item -->
+        <label for="editTitle">Title:</label>
+        <input type="text" id="editTitle" required /><br />
+        <label for="editDescription">Description:</label>
+        <input type="text" id="editDescription" required /><br />
+        <label for="editDueDate">Due Date:</label>
+        <input type="date" id="editDueDate" required /><br />
+        <label>Priority:</label><br />
+        <input
+          type="radio"
+          id="editHighPriority"
+          name="editPriority"
+          value="High"
+        />
+        <label for="editHighPriority">High</label><br />
+        <input
+          type="radio"
+          id="editMediumPriority"
+          name="editPriority"
+          value="Medium"
+        />
+        <label for="editMediumPriority">Medium</label><br />
+        <input
+          type="radio"
+          id="editLowPriority"
+          name="editPriority"
+          value="Low"
+        />
+        <label for="editLowPriority">Low</label><br />
+
+        <label for="editNotes">Notes:</label>
+        <textarea id="editNotes"></textarea><br />
+        <button id="saveChangesButton">Save Changes</button>
+      </div>
+    </div>
+
+    <script src="./scripts.js"></script>
+  </body>
+</html>
