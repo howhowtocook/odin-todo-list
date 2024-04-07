@@ -47,6 +47,10 @@ const todoApp = {
     const project = this.projects.find((proj) => proj.id === projectId);
     if (project) {
       project.todos = project.todos.filter((todo) => todo.id !== todoId);
+      // You might want to save the changes to localStorage here if needed
+      todoApp.saveToLocalStorage();
+      // Update the UI
+      displayProjectsAndTodos();
     }
   },
 
@@ -123,79 +127,127 @@ function displayProjectsAndTodos() {
 }
 
 // Function to edit a todo item
-// Function to edit a todo item and open modal
 function editTodoItem(projectId, todoId) {
   const project = todoApp.projects.find((proj) => proj.id === projectId);
   if (project) {
     const todo = project.todos.find((todo) => todo.id === todoId);
     if (todo) {
       // Populate modal with todo item's details
-      document.getElementById("editTitle").value = todo.title;
-      document.getElementById("editDescription").value = todo.description;
-      document.getElementById("editDueDate").value = todo.dueDate;
-      document.getElementById("editNotes").value = todo.notes;
+      const editTitleInput = document.getElementById("editTitle");
+      if (editTitleInput) editTitleInput.value = todo.title;
 
-      // Set priority checkboxes based on todo's priority
-      document.getElementById("editHighPriority").checked =
-        todo.priority === "High";
-      document.getElementById("editMediumPriority").checked =
-        todo.priority === "Medium";
-      document.getElementById("editLowPriority").checked =
-        todo.priority === "Low";
+      const editDescriptionInput = document.getElementById("editDescription");
+      if (editDescriptionInput) editDescriptionInput.value = todo.description;
+
+      const editDueDateInput = document.getElementById("editDueDate");
+      if (editDueDateInput) editDueDateInput.value = todo.dueDate;
+
+      const editNotesInput = document.getElementById("editNotes");
+      if (editNotesInput) editNotesInput.value = todo.notes;
+
+      const editHighPriorityInput = document.getElementById("editHighPriority");
+      if (editHighPriorityInput)
+        editHighPriorityInput.checked = todo.priority === "High";
+
+      const editMediumPriorityInput =
+        document.getElementById("editMediumPriority");
+      if (editMediumPriorityInput)
+        editMediumPriorityInput.checked = todo.priority === "Medium";
+
+      const editLowPriorityInput = document.getElementById("editLowPriority");
+      if (editLowPriorityInput)
+        editLowPriorityInput.checked = todo.priority === "Low";
 
       // Show modal
-      const modal = document.getElementById("editModal");
-      modal.style.display = "block";
+      const editModal = document.getElementById("editModal");
+      editModal.style.display = "block";
+
+      // Handle closing the modal
+      const closeEditButton = document.querySelector(".closeEdit");
+      if (closeEditButton)
+        closeEditButton.addEventListener("click", () => {
+          closeEditModal();
+        });
 
       // Handle saving changes
       const saveChangesButton = document.getElementById("saveChangesButton");
-      saveChangesButton.onclick = function () {
-        // Retrieve updated values from the modal
-        const updatedTitle = document.getElementById("editTitle").value;
-        const updatedDescription =
-          document.getElementById("editDescription").value;
-        const updatedDueDate = document.getElementById("editDueDate").value;
-        const updatedNotes = document.getElementById("editNotes").value;
-        const updatedPriorityInput = document.querySelector(
-          'input[name="editPriority"]:checked'
-        );
-        const updatedPriority = updatedPriorityInput
-          ? updatedPriorityInput.value
-          : "Unset";
+      if (saveChangesButton)
+        saveChangesButton.onclick = function () {
+          // Retrieve updated values from the modal
+          const updatedTitle = document.getElementById("editTitle").value;
+          const updatedDescription =
+            document.getElementById("editDescription").value;
+          const updatedDueDate = document.getElementById("editDueDate").value;
+          const updatedNotes = document.getElementById("editNotes").value;
+          const updatedPriorityInput = document.querySelector(
+            'input[name="editPriority"]:checked'
+          );
+          const updatedPriority = updatedPriorityInput
+            ? updatedPriorityInput.value
+            : "Unset";
 
-        // Update the todo item
-        todo.update(
-          updatedTitle,
-          updatedDescription,
-          updatedDueDate,
-          updatedPriority,
-          updatedNotes
-        );
+          // Update the todo item
+          todo.update(
+            updatedTitle,
+            updatedDescription,
+            updatedDueDate,
+            updatedPriority,
+            updatedNotes
+          );
 
-        // Close the modal
-        modal.style.display = "none";
+          // Close the modal
+          closeEditModal();
 
-        // Update the user interface
-        displayProjectsAndTodos();
-      };
+          // Update the user interface
+          displayProjectsAndTodos();
+        };
     }
   }
 }
 
+// Function to close the edit modal
+function closeEditModal() {
+  const editModal = document.getElementById("editModal");
+  if (editModal) editModal.style.display = "none";
+}
+
 // Function to delete a todo item
 function deleteTodoItem(projectId, todoId) {
-  const confirmDelete = confirm(
-    "Are you sure you want to delete this todo item?"
-  );
-  if (confirmDelete) {
-    todoApp.deleteTodoFromProject(todoId, projectId);
-    displayProjectsAndTodos(); // Update UI after deletion
+  const project = todoApp.projects.find((proj) => proj.id === projectId);
+  if (project) {
+    project.todos = project.todos.filter((todo) => todo.id !== todoId);
+    // You might want to save the changes to localStorage here if needed
+    todoApp.saveToLocalStorage();
+    // Update the UI
+    displayProjectsAndTodos();
   }
 }
 
+// Function to close the form modal
+function closeFormModal() {
+  const formModal = document.getElementById("formModal");
+  if (formModal) formModal.style.display = "none";
+}
+
+// Function to show the add todo form modal
+function showAddTodoForm() {
+  // Show the todo form modal
+  const todoFormModal = document.getElementById("formModal");
+  if (todoFormModal) todoFormModal.style.display = "block";
+}
+
+// Event listener for the "Add New Todo Item" button
+document.getElementById("addTodoButton").addEventListener("click", () => {
+  showAddTodoForm();
+  closeEditModal(); // Close edit modal if open
+});
+
+// Event listener for closing the form modal
+document.querySelector(".closeForm").addEventListener("click", closeFormModal);
+
 // Event listener for todo form submission
 document
-  .getElementById("todoForm")
+  .getElementById("formModal")
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent form submission
 
@@ -229,7 +281,10 @@ document
     displayProjectsAndTodos();
 
     // Clear the form
-    document.getElementById("todoForm").reset();
+    document.getElementById("formModal").reset();
+
+    // Close the form modal
+    closeFormModal();
   });
 
 // Load data from localStorage and display projects and todos

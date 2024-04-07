@@ -1,87 +1,232 @@
-/* Modal styles */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+/* Todo Item styles */
+.todo-item {
+  margin-bottom: 20px; /* Increase margin-bottom for more space */
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
-/* Modal content */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Box shadow */
+.todo-item:hover {
+  background-color: #fff;
+}
+
+.todo-item p {
+  margin: 0;
+}
+
+/* Edit and Delete Button styles */
+.edit-button,
+.delete-button {
+  background-color: #4caf50; /* Green */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px; /* Add margin-right for spacing */
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #45a049; /* Darker Green */
 }
 
 /* Close button */
-.close {
-  color: #aaa;
+.closeForm,
+.closeEdit {
+  color: #555;
   float: right;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.closeForm:hover,
+.closeForm:focus,
+.closeEdit:hover,
+.closeEdit:focus {
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+}
+
+/* Additional styles */
+
+/* Close button hover effect */
+.closeEdit:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
 
-/* Form styles */
-form {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Button styles */
+button {
+  background-color: #859fba; /* Blue */
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-form label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
+button:hover {
+  background-color: #0056b3; /* Darker Blue */
 }
 
-form input[type="text"],
-form input[type="date"],
-form textarea {
-  width: calc(100% - 24px); /* Adjusted for padding */
+/* Form input styles */
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Ensure the padding is included in the width */
+  transition: border-color 0.3s ease;
 }
 
-form textarea {
-  height: 100px;
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #007bff; /* Blue */
 }
 
-form label.checkbox-label {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-form button[type="submit"] {
-  background-color: #007bff; /* Blue */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+/* Checkbox styles */
+input[type="checkbox"] {
+  margin-right: 5px;
   cursor: pointer;
 }
 
-form button[type="submit"]:hover {
-  background-color: #0056b3; /* Darker blue */
+/* Checkbox label styles */
+label[for="highPriority"],
+label[for="mediumPriority"],
+label[for="lowPriority"] {
+  margin-right: 10px;
+}
+
+/* Textarea styles */
+textarea {
+  resize: vertical; /* Allow vertical resizing */
+}
+
+/* Modal close button hover effect */
+.closeForm:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Additional styles */
+
+/* Header styles */
+h1 {
+  font-family: "Arial Black", sans-serif; /* Use a bold and impactful font for the header */
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 48px; /* Increase font size for a more prominent header */
+}
+
+/* Project container styles */
+#projectContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 50px; /* Add space between the header and project container */
+}
+
+/* Project styles */
+.project {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease; /* Add a smooth transition effect */
+}
+
+.project:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darken box shadow on hover */
+}
+
+/* Todo item styles */
+.todo-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.todo-item:hover {
+  background-color: #fff;
+}
+
+/* Todo item text styles */
+.todo-item p {
+  margin: 0;
+  font-size: 16px; /* Increase font size for better readability */
+}
+
+/* Todo item button styles */
+.todo-item button {
+  background-color: #dc3545; /* Red */
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.todo-item button:hover {
+  background-color: #c82333; /* Darker Red */
+}
+
+/* Form modal styles */
+#formModal {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Semi-transparent white background */
+}
+
+/* Form modal close button styles */
+.closeForm {
+  color: #aaa;
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: color 0.3s ease;
+}
+
+.closeForm:hover {
+  color: #555;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 25%;
+  top: 25%;
+  width: 50%; /* Full width */
+  height: 50%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
 }
